@@ -1,10 +1,21 @@
 import categorias.*;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
 
-        Saldo saldo = new Saldo(30.00);
+        //AGRAGAR SALDO
+        Saldo saldo = new Saldo();
+        Saldo.cargarSaldo();
         System.out.println("Tu saldo actual es: " + saldo.getSaldo());
+
+        //AGREGAR GASTO
+        Gasto miGasto = new MiGasto();
+        miGasto.agregarGasto();
+        miGasto.elegirCategoria();
+
+
 
 
         //Instancio categorías:
