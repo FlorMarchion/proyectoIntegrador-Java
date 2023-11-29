@@ -1,6 +1,5 @@
 import categorias.*;
-
-import java.util.Scanner;
+import categorias.Expense;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,16 +10,13 @@ public class Main {
         System.out.println("Tu saldo actual es: " + saldo.getSaldo());
 
         //AGREGAR GASTO
-        Gasto miGasto = new MiGasto();
+        Expense miGasto = new Expense();
         miGasto.agregarGasto();
-        miGasto.elegirCategoria();
-
-
 
 
         //Instancio categorías:
-        Alimentacion alimentacion = new Alimentacion("Alimentación");
-        CuidadoPersonal CuidadoPersonal = new CuidadoPersonal("Cuidado Personal");
+        Alimentacion alimentacion = new Alimentacion();
+        /*CuidadoPersonal CuidadoPersonal = new CuidadoPersonal("Cuidado Personal");
         DeudasPagos deudasPagos = new DeudasPagos("Deudas y Pagos");
         Educacion educacion = new Educacion("Educación");
         Entretenimiento entretenimiento = new Entretenimiento("Entretenimiento");
@@ -28,10 +24,10 @@ public class Main {
         RopaAccesorios ropaAccesorios = new RopaAccesorios("Ropa y Accesorios");
         Transporte transporte = new Transporte("Transporte");
         Vivienda vivienda = new Vivienda("Vivienda");
-        Micelaneos micelaneos = new Micelaneos("Micelaneos");
+        Micelaneos micelaneos = new Micelaneos("Micelaneos");*/
 
-        System.out.println(alimentacion.getNombre());
+        /*System.out.println(alimentacion.getNombre());
         OperacionesGastos operacionesGastos = new OperacionesGastos();
-        operacionesGastos.contador(saldo);
+        operacionesGastos.contador(saldo);*/
     }
 }

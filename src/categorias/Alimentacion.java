@@ -1,10 +1,7 @@
 package categorias;
 
-public class Alimentacion extends CategoriaGastos {
+public class Alimentacion extends Expense {
 
-    public Alimentacion(String nombre) {
-        super(nombre);
+    public Alimentacion() {
     }
-
-
 }
