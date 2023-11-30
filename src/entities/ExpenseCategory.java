@@ -1,4 +1,6 @@
-public class ExpenseCategory {
+package entities;
+
+public  class ExpenseCategory {
     private String name;
 
     public ExpenseCategory() {
@@ -18,7 +20,7 @@ public class ExpenseCategory {
 
     @Override
     public String toString() {
-        return "ExpenseCategory{" +
+        return "entities.ExpenseCategory{" +
                 "name='" + name + '\'' +
                 '}';
     }

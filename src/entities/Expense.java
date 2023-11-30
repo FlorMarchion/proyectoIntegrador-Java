@@ -1,21 +1,21 @@
-package categorias;
+package entities;
 
-public class Expense implements Gasto{
-
-   private int id;
+public class Expense{
+   private Integer id;
    private String date;
    private String description;
-   private double amount;
-
+   private Double amount;
+   private ExpenseCategory category;
 
     public Expense() {
     }
 
-    public Expense(int id, String date, String description, double amount) {
+    public Expense(int id, String date, String description, double amount, ExpenseCategory category) {
         this.id = id;
         this.date = date;
         this.description = description;
         this.amount = amount;
+        this.category = category;
     }
 
     public int getId() {
@@ -50,6 +50,14 @@ public class Expense implements Gasto{
         this.amount = amount;
     }
 
+    public ExpenseCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(ExpenseCategory category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return "Expense{" +
@@ -57,12 +65,8 @@ public class Expense implements Gasto{
                 ", date='" + date + '\'' +
                 ", description='" + description + '\'' +
                 ", amount=" + amount +
+                ", category=" + category +
                 '}';
     }
 
-    public void agregarGastoCategoria(){
-        System.out.println("Esta sería la lista de gastos dentro de la categoría alimentación");
-    };
-
-
-}
+};
