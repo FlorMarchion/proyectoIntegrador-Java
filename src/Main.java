@@ -1,17 +1,25 @@
 import entities.*;
 import entities.Expense;
+import exceptions.InvalidExpenseException;
+import interfaces.ExpenseAmountValidator;
+import interfaces.ExpenseAmountValidatorImpl;
+import interfaces.ExpenseCalculator;
+import interfaces.ExpenseCalculatorImpl;
 
 import java.util.Scanner;
 
 public class Main {
     public static int counter = 1;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidExpenseException {
         Scanner scanner = new Scanner(System.in);
 
         int index = 0;
         double amount;
         boolean isWrongType = false;
         int amountExpeses = 0;
+
+        ExpenseAmountValidator expenseAmountValidator = new ExpenseAmountValidatorImpl();
+        ExpenseCalculator expenseCalculator = new ExpenseCalculatorImpl();
 
         do{
             System.out.print("Ingrese la cantidad de datos que quiere registrar: ");
@@ -29,8 +37,12 @@ public class Main {
         Expense expense = new Expense();
         ExpenseCategory category = new ExpenseCategory();
 
-        System.out.print("Ingresá el monto del gasto número " + index + ": ");
+        System.out.print("Ingresá el monto del gasto número " + (index + 1) + ": ");
         amount = scanner.nextDouble();
+
+        if (!expenseAmountValidator.validateAmount(amount)){
+            System.out.println("El monto es: " + amount);
+        }
 
         scanner.nextLine();
 
@@ -53,10 +65,14 @@ public class Main {
         index++;
     }while (index < amountExpeses);
 
+        System.out.println("Total de gastos ingresados: $" +  expenseCalculator.calculateTotalExpense(expenses));
+
         System.out.println("DETALLE DE GASTOS INGRESADOS:");
         for (int i = 0; i<expenses.length; i++){
             System.out.println(expenses[i]);
         }
+
+
 
         /*//AGRAGAR SALDO
         Saldo saldo = new Saldo();
