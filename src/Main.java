@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        int index = 1;
+        int index = 0;
         double amount;
         boolean isWrongType = false;
         int amountExpeses = 0;
@@ -34,6 +34,7 @@ public class Main {
 
         scanner.nextLine();
 
+        System.out.print("Ingresa la categoría del gasto: ");
         String name = scanner.nextLine().toLowerCase().trim();
         category.setName(name);
 
