@@ -2,9 +2,11 @@ package interfaces;
 
 import entities.Expense;
 
+import java.util.List;
+
 public interface ExpenseCalculator {
 
     //Firmas del método
     double calculateExpense(Expense expense);
-    double calculateTotalExpense(Expense[] expenses); //Array que almacena todos los gastos
+    double calculateTotalExpense(List<Expense> expenses); //Lista que almacena todos los gastos
 }

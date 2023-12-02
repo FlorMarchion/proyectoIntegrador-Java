@@ -5,8 +5,10 @@ import interfaces.ExpenseAmountValidator;
 import interfaces.ExpenseAmountValidatorImpl;
 import interfaces.ExpenseCalculator;
 import interfaces.ExpenseCalculatorImpl;
+import util.Utilities;
 
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     public static int counter = 1;
@@ -21,56 +23,76 @@ public class Main {
         ExpenseAmountValidator expenseAmountValidator = new ExpenseAmountValidatorImpl();
         ExpenseCalculator expenseCalculator = new ExpenseCalculatorImpl();
 
-        do{
+        /*do{
             System.out.print("Ingrese la cantidad de datos que quiere registrar: ");
          if(scanner.hasNextInt()){
              amountExpeses = scanner.nextInt();
          }else{
              System.out.println("Has ingresado un dato inválido");
          }
-        }while(isWrongType);
+        }while(isWrongType);*/
 
-        //guardo los gastos que ingresé en un array
-        Expense[] expenses = new Expense[amountExpeses];
+        boolean cutLogicVar;
+        System.out.println("¿Desea cargar un gasto? TRUE/FALSE");
+        cutLogicVar = scanner.nextBoolean();
 
-    do{
-        Expense expense = new Expense();
-        ExpenseCategory category = new ExpenseCategory();
+        List<Expense> expenses = new ArrayList<>();
 
-        System.out.print("Ingresá el monto del gasto número " + (index + 1) + ": ");
-        amount = scanner.nextDouble();
+        Map<String, Integer> countCategoryMap = null;
+        while (cutLogicVar) {
+            Expense expense = new Expense();
+            ExpenseCategory category = new ExpenseCategory();
 
-        if (!expenseAmountValidator.validateAmount(amount)){
-            System.out.println("El monto es: " + amount);
+            countCategoryMap = new HashMap<>();
+
+            System.out.print("Ingresá el monto del gasto número " + (index+1) + ": ");
+            amount = scanner.nextDouble();
+
+            if (!expenseAmountValidator.validateAmount(amount)) {
+                System.out.println("El monto es: " + amount);
+            }
+
+            scanner.nextLine();
+
+            System.out.print("Ingresa la categoría del gasto: ");
+            String name = scanner.nextLine().toLowerCase().trim();
+            category.setName(name);
+
+            System.out.print("Ingresa la fecha del gasto: (dd/MM/yyyy) ");
+            String date = scanner.nextLine();
+
+            countCategoryMap.put(name, countCategoryMap.getOrDefault(name, 0) + 1);
+
+            expense.setId(counter);
+            expense.setAmount(amount);
+            expense.setCategory(category);
+            expense.setDate(date);
+
+            //guardo el gasto
+            expenses.add(expense);
+
+            counter++;
+            index++;
+
+            System.out.println("¿Desea cargar otro gasto? TRUE/FALSE");
+            cutLogicVar = scanner.nextBoolean();
         }
 
-        scanner.nextLine();
+        System.out.println("Total de gastos ingresados: $" + expenseCalculator.calculateTotalExpense(expenses));
 
-        System.out.print("Ingresa la categoría del gasto: ");
-        String name = scanner.nextLine().toLowerCase().trim();
-        category.setName(name);
+        System.out.println("TOP 3 DE MONTOS DE GASTOS INGRESADOS"); //Queda pendiente mostrar los 3 gastos de mayor a menor
+        List<Double> amounts = expenses.stream()
+                .map(e -> e.getAmount())
+                .limit(3)
+                .collect(Collectors.toList());
+        amounts.forEach(System.out::println);
 
-        System.out.print("Ingresa la fecha del gasto: (dd/MM/yyyy) ");
-        String date = scanner.nextLine();
+        System.out.println("CONTADOR POR CATEGORÍA");
+        countCategoryMap.forEach((category, count) -> System.out.println(category + ": " + count));
 
-        expense.setId(counter);
-        expense.setAmount(amount);
-        expense.setCategory(category);
-        expense.setDate(date);
-
-        //guardo el gasto
-        expenses[index] = expense;
-
-        counter++;
-        index++;
-    }while (index < amountExpeses);
-
-        System.out.println("Total de gastos ingresados: $" +  expenseCalculator.calculateTotalExpense(expenses));
-
-        System.out.println("DETALLE DE GASTOS INGRESADOS:");
-        for (int i = 0; i<expenses.length; i++){
-            System.out.println(expenses[i]);
-        }
+        System.out.println("DETALLE DE GASTOS INGRESADOS");
+        Utilities.printElements(expenses);
+    }
 
 
 
@@ -85,7 +107,7 @@ public class Main {
 
 
         //Instancio categorías:
-        Contador.Alimentacion alimentacion = new Contador.Alimentacion();
+      //  Contador.Alimentacion alimentacion = new Contador.Alimentacion();
         /*CuidadoPersonal CuidadoPersonal = new CuidadoPersonal("Cuidado Personal");
         DeudasPagos deudasPagos = new DeudasPagos("Deudas y Pagos");
         Educacion educacion = new Educacion("Educación");
@@ -100,4 +122,3 @@ public class Main {
         OperacionesGastos operacionesGastos = new OperacionesGastos();
         operacionesGastos.contador(saldo);*/
     }
-}
