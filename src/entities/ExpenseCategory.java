@@ -1,13 +1,23 @@
 package entities;
 
 public  class ExpenseCategory {
+    private Integer id;
     private String name;
 
     public ExpenseCategory() {
     }
 
-    public ExpenseCategory(String name) {
+    public ExpenseCategory(Integer id, String name) {
+        this.id = id;
         this.name = name;
+    }
+
+    public ExpenseCategory getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -20,8 +30,9 @@ public  class ExpenseCategory {
 
     @Override
     public String toString() {
-        return "entities.ExpenseCategory{" +
-                "name='" + name + '\'' +
+        return "ExpenseCategory{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

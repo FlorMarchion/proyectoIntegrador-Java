@@ -5,24 +5,24 @@ public class Expense{
    private String date;
    private String description;
    private Double amount;
-   private ExpenseCategory category;
+   private Integer categoryId;
 
     public Expense() {
     }
 
-    public Expense(int id, String date, String description, double amount, ExpenseCategory category) {
+    public Expense(Integer id, String date, String description, Double amount, Integer categoryId) {
         this.id = id;
         this.date = date;
         this.description = description;
         this.amount = amount;
-        this.category = category;
+        this.categoryId = categoryId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -42,20 +42,20 @@ public class Expense{
         this.description = description;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
-    public ExpenseCategory getCategory() {
-        return category;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(ExpenseCategory category) {
-        this.category = category;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
     @Override
@@ -65,8 +65,7 @@ public class Expense{
                 ", date='" + date + '\'' +
                 ", description='" + description + '\'' +
                 ", amount=" + amount +
-                ", category=" + category +
+                ", categoryId=" + categoryId +
                 '}';
     }
-
 };
