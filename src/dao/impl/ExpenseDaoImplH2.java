@@ -5,9 +5,12 @@ import dao.dto.ExpenseDto;
 import entities.Expense;
 import exceptions.DAOException;
 
+import javax.management.StringValueExp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenseDaoImplH2 implements ExpenseDao {
@@ -15,6 +18,7 @@ public class ExpenseDaoImplH2 implements ExpenseDao {
     private static final String INSERT_INTO_EXPENSE =
             "INSERT INTO expense (date, description, amount, category_id) VALUES (?, ?, ?, ?)";
 
+    private static final String GET_ALL_EXPENSES = "SELECT * FORM expense";
     private final Connection connection; //dependencia
 
     public ExpenseDaoImplH2(Connection connection) {
@@ -42,21 +46,40 @@ public class ExpenseDaoImplH2 implements ExpenseDao {
         }catch (SQLException | DAOException e) {
             throw new RuntimeException(e);
         }
-
-        connection.prepareStatement();
     }
 
     private Expense mapDtoToExpense(ExpenseDto expenseDto) {
         Expense expense = new Expense();
         expense.setAmount(expenseDto.getAmount());
-        expense.setCategoryId(expenseDto.getCategory());
+        expense.setCategoryId(expenseDto.getCategory().getId());
         expense.setDate(expenseDto.getDate());
         return expense;
     }
 
+    //Datos que traigo de la DB
     @Override
     public List<ExpenseDto> getAll() {
-        return null;
+        try(PreparedStatement statement = connection.prepareStatement(GET_ALL_EXPENSES)){
+            ResultSet resultSet = statement.executeQuery();
+            List<ExpenseDto> expenses = new ArrayList<>();
+            //Itero el resultSet para agregar el gasto a la lista y
+            //Mientras agrego, realizo el mapeo a cada item
+            while (resultSet.next()){ // si existe un registro, lo agrego a la lista
+                expenses.add(mapResultSetToExpenseDto(resultSet));
+            }
+            return expenses;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al obtener la lista de gastos",e);
+        }
+    }
+
+    private ExpenseDto mapResultSetToExpenseDto(ResultSet resultSet) throws SQLException {
+        ExpenseDto expenseDto = new ExpenseDto();
+        expenseDto.setAmount(resultSet.getDouble("amount"));
+        expenseDto.setDate(String.valueOf(resultSet.getDate("date")));
+        expenseDto.setDescription(resultSet.getString("Description"));
+       // expenseDto.setCategory(resultSet.("category_id"));
+        return expenseDto;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package interfaces;
 
+import dao.dto.ExpenseDto;
 import entities.Expense;
 
 import java.util.List;
@@ -11,9 +12,9 @@ public class ExpenseCalculatorImpl implements ExpenseCalculator {
     }
 
     @Override
-    public double calculateTotalExpense(List<Expense> expenses) {
+    public double calculateTotalExpense(List<ExpenseDto> expenses) {
         double totalExpense = 0;
-        for (Expense expense : expenses){
+        for (ExpenseDto expense : expenses){
             totalExpense += expense.getAmount();
         }
         return totalExpense;

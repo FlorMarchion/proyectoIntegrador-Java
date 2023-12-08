@@ -42,7 +42,7 @@ public class ExpenseDto {
         this.amount = amount;
     }
 
-    public Integer getCategory() {
+    public ExpenseCategory getCategory() {
         return category;
     }
 
@@ -52,7 +52,7 @@ public class ExpenseDto {
 
     @Override
     public String toString() {
-        return "ExpeseDto{" +
+        return "ExpenseDto{" +
                 "date='" + date + '\'' +
                 ", description='" + description + '\'' +
                 ", amount=" + amount +

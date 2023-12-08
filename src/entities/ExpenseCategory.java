@@ -12,7 +12,7 @@ public  class ExpenseCategory {
         this.name = name;
     }
 
-    public ExpenseCategory getId() {
+    public Integer getId() {
         return id;
     }
 

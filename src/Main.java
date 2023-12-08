@@ -11,7 +11,6 @@ import interfaces.ExpenseAmountValidator;
 import interfaces.ExpenseAmountValidatorImpl;
 import interfaces.ExpenseCalculator;
 import interfaces.ExpenseCalculatorImpl;
-import org.h2.jdbc.JdbcConnection;
 import util.Utilities;
 
 import java.sql.Connection;
@@ -26,7 +25,7 @@ public class Main {
 
         try(Connection connection = JdbcConfiguration.getDbConnection()){
             ExpenseDao expenseDao = new ExpenseDaoImplH2(connection);
-            ExpenseCategoryDao expenseCategoryDao = new ExpenseCategoryDaoImplH2();
+            ExpenseCategoryDao expenseCategoryDao = new ExpenseCategoryDaoImplH2(connection);
 
             int index = 0;
             double amount;
@@ -68,7 +67,7 @@ public class Main {
 
                 ExpenseCategory expenseCategory = expenseCategoryDao.getCategoryName(name);
 
-                expenseDto.setCategory(expenseCategory.getId()); //Tomo el id del name y seteo ese id en el expense
+                expenseDto.setCategory(expenseCategory); //Tomo el id del name y seteo ese id en el expense
                 expenseDto.setDate(date);
                 //setDescription
 
@@ -82,6 +81,9 @@ public class Main {
                 System.out.println("¿Desea cargar otro gasto? TRUE/FALSE");
                 cutLogicVar = scanner.nextBoolean();
             }
+
+            //Lista de gastos recuperada de la DB
+            List<ExpenseDto> expenses = expenseDao.getAll();
 
             System.out.println("Total de gastos ingresados: $" + expenseCalculator.calculateTotalExpense(expenses));
 
