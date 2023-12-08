@@ -12,8 +12,8 @@ import java.sql.SQLException;
 
 public class ExpenseCategoryDaoImplH2 implements ExpenseCategoryDao {
 
-    private static final String GET_CATEGORY_BY_NAME = "SELECT * FORM expensecategory WHERE name = ?";
-    private static final String INSERT_INTO_EXPENSE_CATEGORY = " INSERT INTO expenseCategory (name) VALUES (?)";
+    private static final String GET_CATEGORY_BY_NAME = "SELECT * FROM GESTION_GASTOS.EXPENSECATEGORY WHERE name = ?";
+    private static final String INSERT_INTO_EXPENSE_CATEGORY = " INSERT INTO GESTION_GASTOS.EXPENSECATEGORY (name) VALUES (?)";
     private final Connection connection;
     public ExpenseCategoryDaoImplH2(Connection connection) {
         this.connection = connection;
@@ -32,9 +32,7 @@ public class ExpenseCategoryDaoImplH2 implements ExpenseCategoryDao {
             if(affectedRows == 0){
                 throw new DAOException("Error al insertar el gato, ninguna fila fue afectada");
             }
-        } catch (DAOException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
+        } catch (DAOException | SQLException e) {
             throw new RuntimeException(e);
         }
 
@@ -42,7 +40,7 @@ public class ExpenseCategoryDaoImplH2 implements ExpenseCategoryDao {
 
     private ExpenseCategory mapDtoExpenseCategory(ExpenseCategoryDto expenseCategoryDto) {
         ExpenseCategory expenseCategory = new ExpenseCategory();
-        expenseCategory.setName(expenseCategory.getName());
+        expenseCategory.setName(expenseCategoryDto.getName());
         return expenseCategory;
     }
 

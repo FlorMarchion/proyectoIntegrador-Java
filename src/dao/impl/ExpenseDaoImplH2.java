@@ -16,9 +16,9 @@ import java.util.List;
 public class ExpenseDaoImplH2 implements ExpenseDao {
 
     private static final String INSERT_INTO_EXPENSE =
-            "INSERT INTO expense (date, description, amount, category_id) VALUES (?, ?, ?, ?)";
+            "INSERT INTO GESTION_GASTOS.EXPENSE (date, description, amount, category_id) VALUES (?, ?, ?, ?)";
 
-    private static final String GET_ALL_EXPENSES = "SELECT * FORM expense";
+    private static final String GET_ALL_EXPENSES = "SELECT * FROM GESTION_GASTOS.EXPENSE";
     private final Connection connection; //dependencia
 
     public ExpenseDaoImplH2(Connection connection) {
@@ -76,7 +76,7 @@ public class ExpenseDaoImplH2 implements ExpenseDao {
     private ExpenseDto mapResultSetToExpenseDto(ResultSet resultSet) throws SQLException {
         ExpenseDto expenseDto = new ExpenseDto();
         expenseDto.setAmount(resultSet.getDouble("amount"));
-        expenseDto.setDate(String.valueOf(resultSet.getDate("date")));
+        expenseDto.setDate((resultSet.getString("date")));
         expenseDto.setDescription(resultSet.getString("Description"));
        // expenseDto.setCategory(resultSet.("category_id"));
         return expenseDto;

@@ -19,7 +19,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
-    public static int counter = 1;
+
     public static void main(String[] args) throws InvalidExpenseException {
         Scanner scanner = new Scanner(System.in);
 
@@ -33,12 +33,12 @@ public class Main {
             ExpenseAmountValidator expenseAmountValidator = new ExpenseAmountValidatorImpl();
             ExpenseCalculator expenseCalculator = new ExpenseCalculatorImpl();
 
-            boolean cutLogicVar;
-            System.out.println("¿Desea cargar un gasto? TRUE/FALSE");
-            cutLogicVar = scanner.nextBoolean();
+            String cutLogicVar;
+            System.out.println("¿Desea cargar un gasto? SI/NO");
+            cutLogicVar = scanner.nextLine();
 
             Map<String, Integer> countCategoryMap = null;
-            while (cutLogicVar) {
+            while (cutLogicVar.equals("SI")) {
                 ExpenseDto expenseDto = new ExpenseDto();
                 ExpenseCategoryDto category = new ExpenseCategoryDto();
 
@@ -75,11 +75,10 @@ public class Main {
                 expenseDao.insert(expenseDto);
 
 
-                counter++;
                 index++;
 
-                System.out.println("¿Desea cargar otro gasto? TRUE/FALSE");
-                cutLogicVar = scanner.nextBoolean();
+                System.out.println("¿Desea cargar otro gasto? SI/NO");
+                cutLogicVar = scanner.nextLine();
             }
 
             //Lista de gastos recuperada de la DB
@@ -94,6 +93,8 @@ public class Main {
                     .limit(3)
                     .collect(Collectors.toList());
             amounts.forEach(System.out::println);
+
+            System.out.println("count categoryMap:" + countCategoryMap);
 
             System.out.println("CONTADOR POR CATEGORÍA");
             countCategoryMap.forEach((category, count) -> System.out.println(category + ": " + count));
