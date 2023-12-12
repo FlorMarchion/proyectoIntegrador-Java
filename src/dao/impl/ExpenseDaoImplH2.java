@@ -51,7 +51,7 @@ public class ExpenseDaoImplH2 implements ExpenseDao {
     private Expense mapDtoToExpense(ExpenseDto expenseDto) {
         Expense expense = new Expense();
         expense.setAmount(expenseDto.getAmount());
-        expense.setCategoryId(expenseDto.getCategory().getId());
+        expense.setCategoryId(expenseDto.getCategoryId());
         expense.setDate(expenseDto.getDate());
         return expense;
     }

@@ -6,16 +6,16 @@ public class ExpenseDto {
     private String date;
     private String description;
     private Double amount;
-    private ExpenseCategory category;
+    private int categoryId;
 
     public ExpenseDto() {
     }
 
-    public ExpenseDto(String date, String description, Double amount, ExpenseCategory category) {
+    public ExpenseDto(String date, String description, Double amount, int categoryId) {
         this.date = date;
         this.description = description;
         this.amount = amount;
-        this.category = category;
+        this.categoryId = categoryId;
     }
 
     public String getDate() {
@@ -42,12 +42,12 @@ public class ExpenseDto {
         this.amount = amount;
     }
 
-    public ExpenseCategory getCategory() {
-        return category;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(ExpenseCategory category) {
-        this.category = category;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ExpenseDto {
                 "date='" + date + '\'' +
                 ", description='" + description + '\'' +
                 ", amount=" + amount +
-                ", category=" + category +
+                ", categoryId=" + categoryId +
                 '}';
     }
 };

@@ -67,7 +67,7 @@ public class Main {
 
                 ExpenseCategory expenseCategory = expenseCategoryDao.getCategoryName(name);
 
-                expenseDto.setCategory(expenseCategory); //Tomo el id del name y seteo ese id en el expense
+                expenseDto.setCategoryId(expenseCategory.getId()); //Tomo el id del name y seteo ese id en el expense
                 expenseDto.setDate(date);
                 //setDescription
 
