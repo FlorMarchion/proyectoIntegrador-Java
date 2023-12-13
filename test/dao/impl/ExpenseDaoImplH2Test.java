@@ -33,7 +33,7 @@ class ExpenseDaoImplH2Test {
     void insertExpense_WhenValidExpenseDto() throws SQLException {
         //GIVEN
         ExpenseDto expenseDto = new ExpenseDto();
-        expenseDto.setAmount(100.00);
+        expenseDto.setAmount(100.0);
         expenseDto.setDate("4/08/2023");
         expenseDto.setCategoryId(2);
 
@@ -44,10 +44,10 @@ class ExpenseDaoImplH2Test {
         expenseDao.insert(expenseDto);
 
         //THEN
-        verify(preparedStatementMock).setDouble(1, expenseDto.getAmount());
-        verify(preparedStatementMock).setInt(2, expenseDto.getCategoryId());
-        verify(preparedStatementMock).setString(3, expenseDto.getDate());
-        //agregar tmb el verify de description
+        verify(preparedStatementMock).setString(1, expenseDto.getDate());
+        //agregar tmb el verify de description 2
+        verify(preparedStatementMock).setDouble(3, expenseDto.getAmount());
+        verify(preparedStatementMock).setInt(4, expenseDto.getCategoryId());
         verify(preparedStatementMock, times(1)).executeUpdate();
 
     }
