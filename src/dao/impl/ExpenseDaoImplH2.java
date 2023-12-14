@@ -77,8 +77,8 @@ public class ExpenseDaoImplH2 implements ExpenseDao {
         ExpenseDto expenseDto = new ExpenseDto();
         expenseDto.setAmount(resultSet.getDouble("amount"));
         expenseDto.setDate((resultSet.getString("date")));
-        expenseDto.setDescription(resultSet.getString("Description"));
-       // expenseDto.setCategory(resultSet.("category_id"));
+        expenseDto.setDescription(resultSet.getString("description"));
+        expenseDto.setCategoryId(resultSet.getInt("categoryId"));
         return expenseDto;
     }
 
